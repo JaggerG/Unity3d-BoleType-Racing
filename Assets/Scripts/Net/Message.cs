@@ -134,7 +134,7 @@ public class Message  {
                 if (strData[i] == '}')
                 {
                     string jsonData = strData.Substring(0, i + 1);
-                    Debug.LogWarning("jsonData---------------->"+jsonData[0]);
+                   // Debug.LogWarning("jsonData[0]---------------->"+jsonData[0]);
                     if (jsonData[0] != '{')
                     {
                         continue;
@@ -144,29 +144,29 @@ public class Message  {
                     string temps = temp["actionCode"].ToString();
 
                     ActionCode actionCode = (ActionCode) Int32.Parse(temps);
-                   Debug.LogWarning("actionCode---------->" + temp["actionCode"]);
-                   Debug.LogWarning("afterCut<-------->" + JsonMapper.ToJson(temp).ToString());
-                   Debug.LogWarning(strData);
+//                   Debug.LogWarning("actionCode---------->" + temp["actionCode"]);
+//                   Debug.LogWarning("afterCut<-------->" + JsonMapper.ToJson(temp).ToString());
+//                   Debug.LogWarning(strData);
                     processDataCallback(actionCode, temp["data"].ToString());
                     strData = strData.Substring(i+1,strData.Length-(i+1));
-                    Debug.Log("------afterCut-------strData--------" + strData+"-------strDataLength--------"+strData.Length);
+//                    Debug.Log("------afterCut-------strData--------" + strData+"-------strDataLength--------"+strData.Length);
                     //startIndex = i;
-                    Debug.Log(StartIndex);
+//                    Debug.Log(StartIndex);
                     i = 0;
                 }
                 else if(strData[i]=='\0'||i==strData.Length-1)
                 {
-                    Debug.Log("break");
+//                    Debug.Log("break");
                     
                     data=new byte[1024];
                     byte[] temp= Encoding.UTF8.GetBytes(strData);
                     //data = temp;
                     Array.Copy(temp,0,data,0,temp.Length);
                    
-                   Debug.Log("------------data--------"+Encoding.UTF8.GetString(data));
-                   Debug.Log("------dataLength-----"+data.Length);
+//                   Debug.Log("------------data--------"+Encoding.UTF8.GetString(data));
+//                   Debug.Log("------dataLength-----"+data.Length);
                     startIndex = 0;
-                   Debug.Log("after-----break-----startIndex----->"+startIndex);
+//                   Debug.Log("after-----break-----startIndex----->"+startIndex);
                     break;
                 }
                 i++;
@@ -202,8 +202,8 @@ public class Message  {
 //
 //        return datas;
 
-            Debug.LogWarning("packData");
-            Debug.LogWarning("actionCode--------->"+(int)actionCode);
+          //  Debug.LogWarning("packData");
+           // Debug.LogWarning("actionCode--------->"+(int)actionCode);
         JsonData jsonData = new JsonData();
 
         jsonData["requestCode"] = requestData.ToString();
@@ -212,7 +212,7 @@ public class Message  {
 
         string datas = jsonData.ToJson();
         
-        Debug.LogWarning("PackedData------>"+datas);
+      //  Debug.LogWarning("PackedData------>"+datas);
         
         byte[] Json = Encoding.UTF8.GetBytes(datas);
         return Json;

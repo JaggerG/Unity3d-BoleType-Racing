@@ -42,7 +42,7 @@ public class PlayerManager : BaseManager
     private void InitRoleDataDict()
     {
         
-        Debug.Log("--------"+playerPositions.Find("Player1Pos").position);
+       // Debug.Log("--------"+playerPositions.Find("Player1Pos").position);
         roleDataDict.Add(RoleType.Blue,new RoleData(RoleType.Blue,"Player1",new Vector3(130.7f,3.25f,-100f)));
         roleDataDict.Add(RoleType.Red,new RoleData(RoleType.Red,"Player2",new Vector3(127.93f,3.25f,-100f)));
 
@@ -57,9 +57,9 @@ public class PlayerManager : BaseManager
     public void CreateSyncRequest()
     {
         
-        Debug.Log("-------current---------------->>>>>"+currentRoleGameObject.transform.position);
+       // Debug.Log("-------current---------------->>>>>"+currentRoleGameObject.transform.position);
         
-        Debug.Log("-------remote---------------->>>>>"+remoteRoleGameObject.transform.position);
+       // Debug.Log("-------remote---------------->>>>>"+remoteRoleGameObject.transform.position);
         playerSyncRequest=new GameObject("PlayerSyncRequest");
         playerSyncRequest.AddComponent<MoveRequest>().SetLocalPlayer(currentRoleGameObject.transform)
             .SetRemotePlayer(remoteRoleGameObject.transform);

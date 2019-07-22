@@ -45,15 +45,15 @@ public class ClientManager :BaseManager {
         {
             if (clientSocket == null || clientSocket.Connected == false) return;
             int count = clientSocket.EndReceive(ar);
-            Debug.LogWarning("reciveDataLength------>"+count);
-            Debug.LogWarning("startIndex------->"+msg.StartIndex+"------"+"msg.RemainSize------->"+msg.RemainSize);
-               Debug.LogWarning("DataFromServer-----"+Encoding.UTF8.GetString(msg.Data,0,msg.Data.Length));
+//            Debug.LogWarning("reciveDataLength------>"+count);
+//            Debug.LogWarning("startIndex------->"+msg.StartIndex+"------"+"msg.RemainSize------->"+msg.RemainSize);
+              Debug.LogWarning("DataFromServer-----"+Encoding.UTF8.GetString(msg.Data,0,msg.Data.Length));
                 string datas = Encoding.UTF8.GetString(msg.Data, 0, msg.Data.Length);
                //Debug.LogWarning("2222");
                 //JsonData jsondata = JsonMapper.ToObject(Encoding.UTF8.GetString(msg.Data, 0, msg.Data.Length));
 
                // msg.GetData(datas,OnProcessDataCallback);
-                Debug.LogWarning("ReceiveCallBack");   
+             //   Debug.LogWarning("ReceiveCallBack");   
                 msg.ReadMessage(count, OnProcessDataCallback);
             
             Start();
@@ -65,13 +65,13 @@ public class ClientManager :BaseManager {
     }
     private void OnProcessDataCallback(ActionCode actionCode,string data)
     {
-        Debug.LogWarning("Process");
+        //Debug.LogWarning("Process");
         facade.HandleReponse(actionCode, data);
     }
     public void SendRequest(RequestCode requestCode, ActionCode actionCode, string data)
     {
         byte[] bytes = Message.PackData(requestCode, actionCode, data);   
-        Debug.LogWarning("clientSend");
+//        Debug.LogWarning("clientSend");
         clientSocket.Send(bytes);
     }
     public override void OnDestroy()

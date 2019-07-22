@@ -27,7 +27,11 @@ public class GameFacade : MonoBehaviour
     private bool isGameMsg = false;
     private bool isEnterPlaying = false;
     private bool isEnterGameCamera = false;
-
+    private bool isShowTimer = false;
+    private bool isShowTime = false;
+    private bool isWiner = false;
+    private bool isUpdate = false;
+    private string times = "";
     private string gameovermsg= "";
     //private UserData _userData;
     
@@ -66,7 +70,7 @@ public class GameFacade : MonoBehaviour
 
         if (isEnterGameCamera)
         {
-            Debug.Log("---------------EnterGameCamera");
+//            Debug.Log("---------------EnterGameCamera");
             cameraMng.EnterGame();
             gameMng.GetComponent<GameManager>().BeginGame();
             isEnterGameCamera = false;
@@ -76,6 +80,24 @@ public class GameFacade : MonoBehaviour
         {
             uiMng.ShowMessage(gameovermsg);
             isGameMsg = false;
+        }
+
+        if (isShowTimer)
+        {
+            StartCoroutine(GameOverCount());
+            isShowTimer = false;
+        }
+
+        if (isShowTime)
+        {
+            gameMng.GetComponent<GameManager>().showTime(times);
+            isShowTime = false;
+        }
+
+        if (isUpdate)
+        {
+            UpdateScore();
+            isUpdate = false;
         }
 	}
     
@@ -137,7 +159,7 @@ public class GameFacade : MonoBehaviour
     public void HandleReponse(ActionCode actionCode, string data)
     {
        
-        Debug.LogWarning("Response");
+       // Debug.LogWarning("Response");
         requestMng.HandleReponse(actionCode, data);
     }
     
@@ -148,7 +170,7 @@ public class GameFacade : MonoBehaviour
 
     public void SetUserData(UserData ud)
     {
-        Debug.Log("setUd--gamefacade--->"+ud.NickName);
+        //Debug.Log("setUd--gamefacade--->"+ud.NickName);
         playerMng.userData = ud;
     }
 
@@ -218,7 +240,65 @@ public class GameFacade : MonoBehaviour
        
     }
 
-    
+    public void GameOver()
+    {
+        
+    }
+
+    public void FinishGame()
+    {
+       // gameMng.
+    }
+
+    //在FinishGameRequest调用
+    public void showTimer()
+    {
+        isShowTimer = true;
+        isWiner = true;
+    }
+    //在showTimeRequest调用
+    public void showTime(string i)
+    {
+        times = i;
+        if (i == "1")
+        {
+            isUpdate = true;
+        }
+        
+        if (isWiner)
+        {
+            isShowTime = false;
+            return;
+        }
+        isShowTime = true;
+        
+    }
+
+    IEnumerator GameOverCount()
+    {
+        //倒计时时长
+        int i = 5;
+        while (i>0)
+        {
+            yield return new WaitForSeconds(1);
+            
+            gameMng.GetComponent<GameManager>().ShowTimer(i.ToString());
+            gameMng.GetComponent<ShowTimerRequest>().SendRequest("2",i.ToString());
+            i--;
+            if (i == 0)
+            {
+                isUpdate = true;
+            }
+        } 
+    }
+
+
+    public void UpdateScore()
+    {
+        float time = gameMng.GetComponent<GameManager>().GetTime();
+        float speed = gameMng.GetComponent<GameManager>().GetSpeed();
+        gameMng.GetComponent<GameOverRequest>().SendRequest(time.ToString(),speed.ToString());
+    }
 //    public void GameOverMsg(string msg)
 //    {
 //
@@ -226,5 +306,5 @@ public class GameFacade : MonoBehaviour
 //        isGameMsg = true;
 //        
 //    }
-    
+
 }

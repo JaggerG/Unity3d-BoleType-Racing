@@ -75,6 +75,11 @@ public class LoginPanel : BasePanel
       EnterAnimation();
    }
 
+   public override void OnResume()
+   {
+      gameObject.SetActive(true);
+   }
+
    public override void OnPause()
    {
       EnterAnimation();

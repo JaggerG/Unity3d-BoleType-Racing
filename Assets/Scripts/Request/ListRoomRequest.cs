@@ -31,6 +31,7 @@ public class ListRoomRequest : BaseRequest
     {
         //data:状态码(1成功，0失败)，房间名，房间人数，房间号
 
+        
         if (data == "0")
         {
             roomPanel.ClearList();
@@ -51,7 +52,7 @@ public class ListRoomRequest : BaseRequest
             string[] udArray = response[1].Split('/');
             if (udArray.Length == 2)
             {
-                Debug.Log("-----------fuck-------"+udArray[0]);
+               // Debug.Log("-----------fuck-------"+udArray[0]);
                 string[] strs = udArray[0].Split(',');
                 udList.Add(new UserData(strs[0],int.Parse(strs[2])));
             }
@@ -67,9 +68,9 @@ public class ListRoomRequest : BaseRequest
         }
         
         
-        Debug.Log("-----------SetUdList--------");
+       // Debug.Log("-----------SetUdList--------");
         roomPanel.LoadRoomItemSync(udList);
-        Debug.Log("-----------SetUdList11111--------");
+       // Debug.Log("-----------SetUdList11111--------");
 
     }
 

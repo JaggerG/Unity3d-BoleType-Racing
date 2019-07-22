@@ -7,19 +7,19 @@ public class FinishLineCollider : MonoBehaviour
     // Start is called before the first frame update
 
    
-    private GameOverRequest gameOverRequest;
+    
+    private FinishGameRequest finishGameRequest;
 
     private void  Start()
     {
-        gameOverRequest = GetComponent<GameOverRequest>();
+        finishGameRequest = GetComponent<FinishGameRequest>();
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.name == "Player1(Clone)"||other.gameObject.name=="Player2(Clone)")
+        if (other.gameObject.tag=="Player")
         {
-            //gameOver;
-           
-            //Debug.Log("-------------------gameOver-----------------------");
+           // Debug.Log("beginFinished------------>");
+            finishGameRequest.SendRequest("0");
         }
     }
 }

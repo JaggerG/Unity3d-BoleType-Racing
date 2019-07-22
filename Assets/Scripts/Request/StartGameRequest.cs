@@ -25,8 +25,8 @@ public class StartGameRequest : BaseRequest
    
     public override void OnResponse(string data)
     {
-        Debug.Log("-----------data-----startGame------color----------"+data);
-        Debug.Log("startPlayOnResponse");        
+       // Debug.Log("-----------data-----startGame------color----------"+data);
+       // Debug.Log("startPlayOnResponse");        
         int RoleType = Int32.Parse(data);
         facade.EnterPlayingSync();
         facade.SetCurrentRoleType(RoleType);

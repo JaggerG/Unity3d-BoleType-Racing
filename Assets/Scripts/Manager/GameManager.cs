@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject subTitle;
 
+    public GameObject CountDownText;
     public Text WhiteText;
     public Text RedText;
    // public GameObject car;
@@ -17,11 +18,21 @@ public class GameManager : MonoBehaviour
     private int numCount;
     private bool isBegin;
     private bool isShowSubTitle;
-
+    private float TotalTime=0;
+    private float speed=0;
 
     
     private int _typeCount;
 
+
+    public void ShowTimer(string time)
+    {
+        CountDownText.SetActive(true);
+        CountDownText.GetComponent<Text>().text = time;
+    }
+
+    
+    
 
     string transNum(char block)
     {
@@ -74,7 +85,7 @@ public class GameManager : MonoBehaviour
 //        currentBlock[1] = "Alpha2";
 //        currentBlock[3] = "Alpha3";
         //RedText.text="";
-        WhiteText.text = "love_of_my_life_you_heart_me_you_broken_my_love_and_now_you_leave_me_love_of_my_life_cant_you_see_bring_it_back_bring_it_back_dont_take_away_from_me_because_you_dont_konw_what_is_to_me";
+        WhiteText.text = "love_of_my_life_you_heart_me_you_broken_my_love_and_now_you_leave_me_love_of_my_life_cant_you_see_bring_it_back_bring_it_back_dont_take_away_from_me_because_you_dont_konw_what_is_to_me_love_of_my_life_love_of_my_life_oh_you_will_remmber_when_there_blow_over";
         //print(WhiteText.text.Length);
         _typeCount = 0;
         //print(WhiteText.text.ToString().Substring(1,WhiteText.text.Length-1));
@@ -82,9 +93,9 @@ public class GameManager : MonoBehaviour
 	    
     }
 
-/// <summary>
-/// 大小写控制
-/// </summary>
+    /// <summary>
+    /// 大小写控制
+    /// </summary>
 
 //    void OnGUI()
 //    {
@@ -108,7 +119,24 @@ public class GameManager : MonoBehaviour
 //        }
 //    }
 
-   public GameObject car;
+    public void showTime(string time)
+    {
+        
+        CountDownText.SetActive(true);
+       
+        CountDownText.GetComponent<Text>().text = time;
+    }
+
+    public float GetTime()
+    {
+        return TotalTime;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+   private GameObject car;
     
     public void  findPlayer(int type)
     {
@@ -122,7 +150,7 @@ public class GameManager : MonoBehaviour
             car = GameObject.Find("Player2(Clone)");
         }
 
-        print("-----------------------getCar-----------------------"+car);
+       // print("-----------------------getCar-----------------------"+car);
     }
 
 
@@ -135,7 +163,7 @@ public class GameManager : MonoBehaviour
     public void BeginGame()
     {
         
-        Debug.Log("---------------------beignGameeeeeee-----------------------");
+        ///Debug.Log("---------------------beignGameeeeeee-----------------------");
         isShowSubTitle = true;
         isBegin = true;
     }
@@ -145,7 +173,7 @@ public class GameManager : MonoBehaviour
     {
         if (isShowSubTitle)
         {
-            Debug.Log("-------------------setWHITE-------------");
+            //Debug.Log("-------------------setWHITE-------------");
             subTitle.SetActive(true);
             isShowSubTitle = false;
         }

@@ -27,7 +27,7 @@ public class UIManager :BaseManager{
     public override void OnInit()
     {
         base.OnInit();
-        Debug.Log("---------pushPanle---------");
+        //Debug.Log("---------pushPanle---------");
         PushPanel(UIPanelType.Message);
        
         PushPanel(UIPanelType.Start);

@@ -12,7 +12,7 @@ public class RequestManager : BaseManager
     public override void OnInit()
     {
         base.OnInit();
-        Debug.LogWarning("RequestManagerInit");
+//        Debug.LogWarning("RequestManagerInit");
     }
     public void AddRequest(ActionCode actionCode,BaseRequest request)
     {

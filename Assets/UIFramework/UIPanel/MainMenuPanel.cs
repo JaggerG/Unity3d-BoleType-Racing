@@ -24,12 +24,6 @@ public class MainMenuPanel : BasePanel
         transform.Find("Store").GetComponent<Button>();
         transform.Find("setting").GetComponent<Button>();
         transform.Find("exit").GetComponent<Button>();
-        
-        
-        
-        
-        
-        
     }
     
     
@@ -50,12 +44,13 @@ public class MainMenuPanel : BasePanel
     public override void OnEnter()
     {
         base.OnEnter();
-        
+        gameObject.SetActive(true);
     }
 
     public override void OnPause()
     {
         base.OnPause();
+        gameObject.SetActive(false);
     }
 
     public override void OnExit()
@@ -66,6 +61,7 @@ public class MainMenuPanel : BasePanel
     public override void OnResume()
     {
         base.OnResume();
+        gameObject.SetActive(true);
     }
 
 

@@ -58,7 +58,7 @@ public class MoveRequest : BaseRequest
     private void SyncRemotePlayer()
     {
         remotePlayerTransform.position = pos;
-        Debug.Log("-------------sync Remote------->>>>>----"+remotePlayerTransform.position);
+       // Debug.Log("-------------sync Remote------->>>>>----"+remotePlayerTransform.position);
     }
     private void SyncLocalPlayer()
     {
@@ -66,7 +66,7 @@ public class MoveRequest : BaseRequest
     }
     public override void OnResponse(string data)
     {
-        Debug.Log("----------------moveResponse--->>>>--------");
+        //Debug.Log("----------------moveResponse--->>>>--------");
         pos = Parse(data);
         isSyncRemotePlayer = true;
     }
