@@ -11,4 +11,5 @@ public enum UIPanelType  {
     MainMenu,
     Room,
     VS,
+    GameOver,
 }

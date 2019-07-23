@@ -75,7 +75,8 @@ public class PlayerManager : BaseManager
             if (rd.RoleType == currentRoleType)
             {
                 currentRoleGameObject = go;
-                
+                currentRoleGameObject.tag = "localPlayer";
+
             }
             else
             {

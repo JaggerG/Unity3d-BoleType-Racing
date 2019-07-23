@@ -14,11 +14,15 @@ public class FinishGameRequest :BaseRequest
 
     public void SendRequest(string data)
     {
+        facade.finishStopTime();
+        
         base.SendRequest(data);
     }
 
     public override void OnResponse(string data)
     {
+        
+        Debug.Log("------------FinishResponse----"+data);
         if (data == "1")
         {
             //TODO胜利同步时间

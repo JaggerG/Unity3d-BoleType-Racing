@@ -14,7 +14,9 @@
   {"panelTypeString": "Room",
     "path": "UIPanel/RoomPanel"},
   {"panelTypeString": "VS",
-    "path": "UIPanel/VSPanel"}
+    "path": "UIPanel/VSPanel"},
+  {"panelTypeString": "GameOver",
+    "path": "UIPanel/GameOverPanel"}
   
   
 ]

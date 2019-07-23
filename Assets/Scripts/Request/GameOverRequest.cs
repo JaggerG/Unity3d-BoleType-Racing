@@ -14,6 +14,7 @@ public class GameOverRequest : BaseRequest
 
     public void SendRequest(string time,string speed)
     {
+        Debug.Log("result----------------"+time+"--------"+speed);
         string data = "+";
         data += "'time':'" + time + "',";
         data += "'speed':'" + speed + "'-";
@@ -24,7 +25,7 @@ public class GameOverRequest : BaseRequest
     {
         
         //facade.GameOverMsg(data);
-        
+        facade.SetGameOverPanel(data);
         Debug.Log(data);
     }
 }

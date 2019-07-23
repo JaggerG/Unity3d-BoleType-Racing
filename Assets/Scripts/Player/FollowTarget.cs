@@ -7,16 +7,17 @@ public class FollowTarget : MonoBehaviour
 {
     public Transform target;
     private Vector3 offset;
-    private float smoothing = 2;
+    private float smoothing = 4;
 
     private void Start()
     {
         offset = gameObject.GetComponent<Transform>().position - target.position;
     }
     // Update is called once per frame
-    void Update () {
+    void  LateUpdate () {
         Vector3 targetPosition = target.position + offset;
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.deltaTime);
        // transform.LookAt(target);
     }
+    
 }

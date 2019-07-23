@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+using UnityEngine.Rendering;
+
 public class GameFacade : MonoBehaviour
 {
 
@@ -24,6 +27,7 @@ public class GameFacade : MonoBehaviour
     private UIManager uiMng;
     private CameraManager cameraMng;
 
+    
     private bool isGameMsg = false;
     private bool isEnterPlaying = false;
     private bool isEnterGameCamera = false;
@@ -31,8 +35,11 @@ public class GameFacade : MonoBehaviour
     private bool isShowTime = false;
     private bool isWiner = false;
     private bool isUpdate = false;
+    private bool isShowGameOverPanel;
     private string times = "";
     private string gameovermsg= "";
+    private string gameResult = "";
+ 
     //private UserData _userData;
     
 //    public UserData Udata
@@ -85,19 +92,30 @@ public class GameFacade : MonoBehaviour
         if (isShowTimer)
         {
             StartCoroutine(GameOverCount());
+            
             isShowTimer = false;
         }
 
         if (isShowTime)
         {
             gameMng.GetComponent<GameManager>().showTime(times);
+            
+            
             isShowTime = false;
         }
 
         if (isUpdate)
         {
             UpdateScore();
+            gameMng.GetComponent<GameManager>().StopTimeCount();
             isUpdate = false;
+        }
+
+        if (isShowGameOverPanel)
+        {
+           BasePanel panel= uiMng.PushPanel(UIPanelType.GameOver);
+           (panel as GameOverPanel).setPanel(gameResult);
+            isShowGameOverPanel = false;
         }
 	}
     
@@ -186,7 +204,7 @@ public class GameFacade : MonoBehaviour
 
     public void setPlayer(GameObject localPlayer, GameObject remotePlayer)
     {
-        print("-------------------------------SetPlayer---------gamefacade------------");
+       // print("-------------------------------SetPlayer---------gamefacade------------");
         playerMng.setPlayer(localPlayer, remotePlayer);
     }
 
@@ -240,9 +258,9 @@ public class GameFacade : MonoBehaviour
        
     }
 
-    public void GameOver()
+    public void finishStopTime()
     {
-        
+        gameMng.GetComponent<GameManager>().StopTimeCount();
     }
 
     public void FinishGame()
@@ -254,8 +272,17 @@ public class GameFacade : MonoBehaviour
     public void showTimer()
     {
         isShowTimer = true;
-        isWiner = true;
+        isWiner = true; 
+        Debug.Log("winner");
     }
+
+    public void showTimer2()
+    {
+        isShowTimer = true;
+        isWiner = false; 
+        Debug.Log("loser");
+    }
+    
     //在showTimeRequest调用
     public void showTime(string i)
     {
@@ -265,11 +292,12 @@ public class GameFacade : MonoBehaviour
             isUpdate = true;
         }
         
-        if (isWiner)
-        {
-            isShowTime = false;
-            return;
-        }
+//        if (isWiner)
+//        {
+//            isShowTime = false;
+//           
+//            return;
+//        }
         isShowTime = true;
         
     }
@@ -277,7 +305,7 @@ public class GameFacade : MonoBehaviour
     IEnumerator GameOverCount()
     {
         //倒计时时长
-        int i = 5;
+        int i = 10;
         while (i>0)
         {
             yield return new WaitForSeconds(1);
@@ -297,8 +325,19 @@ public class GameFacade : MonoBehaviour
     {
         float time = gameMng.GetComponent<GameManager>().GetTime();
         float speed = gameMng.GetComponent<GameManager>().GetSpeed();
+        gameMng.GetComponent<GameManager>().StopTimeCount();
         gameMng.GetComponent<GameOverRequest>().SendRequest(time.ToString(),speed.ToString());
+        
     }
+
+
+    public void SetGameOverPanel(string data)
+    {
+        gameResult = data;
+        isShowGameOverPanel = true;
+    }
+    
+    
 //    public void GameOverMsg(string msg)
 //    {
 //

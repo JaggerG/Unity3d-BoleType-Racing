@@ -16,7 +16,7 @@ public class FinishLineCollider : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag=="Player")
+        if (other.gameObject.tag=="localPlayer")
         {
            // Debug.Log("beginFinished------------>");
             finishGameRequest.SendRequest("0");

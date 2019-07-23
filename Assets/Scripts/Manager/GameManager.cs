@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+
 using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
@@ -20,8 +22,10 @@ public class GameManager : MonoBehaviour
     private bool isShowSubTitle;
     private float TotalTime=0;
     private float speed=0;
-
-    
+    private float Time;
+    public GameObject Timer;
+    private Text TimerText;
+    private bool isCount = true;
     private int _typeCount;
 
 
@@ -89,8 +93,9 @@ public class GameManager : MonoBehaviour
         //print(WhiteText.text.Length);
         _typeCount = 0;
         //print(WhiteText.text.ToString().Substring(1,WhiteText.text.Length-1));
-		
-	    
+        TimerText = Timer.GetComponent<Text>();
+
+
     }
 
     /// <summary>
@@ -129,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     public float GetTime()
     {
-        return TotalTime;
+        return Time;
     }
 
     public float GetSpeed()
@@ -160,12 +165,33 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void StopTimeCount()
+    {
+       Debug.Log("stopCoroutine");
+       isCount = false;
+        StopCoroutine(TimeCount());
+    }
     public void BeginGame()
     {
         
         ///Debug.Log("---------------------beignGameeeeeee-----------------------");
         isShowSubTitle = true;
         isBegin = true;
+        Time = 0;
+        Timer.SetActive(true);
+        StartCoroutine(TimeCount());
+    }
+
+   
+
+    IEnumerator TimeCount()
+    {
+        while (isCount)
+        {
+            yield return new WaitForSeconds(0.1f);
+            Time += 0.1f;
+            TimerText.text = Time.ToString("F2");
+        }        
     }
     
     // Update is called once per frame
@@ -194,8 +220,12 @@ public class GameManager : MonoBehaviour
             {
                 if (Input.GetKeyDown("space"))
                 {
-                    if ((_typeCount + 1) > WhiteText.text.Length)
+                    if ((_typeCount + 2) > WhiteText.text.Length)
+                    {
+                        _typeCount = 0;
                         return;
+                    }
+                        
 
                     RedText.text += "_";
 
@@ -249,12 +279,22 @@ public class GameManager : MonoBehaviour
                 if (car.GetComponent<Rigidbody>().velocity.x >= 6)
                     return;
                 car.GetComponent<Rigidbody>().AddForce(0, 0, 50, ForceMode.Force);
+                if ((_typeCount + 2) > WhiteText.text.Length)
+                {
+                    _typeCount = 0;
+                    return;
+                }
 
+                if ((_typeCount + 2) > WhiteText.text.Length)
+                {
+                    _typeCount = 0;
+                    return;
+                }
+                
                 _typeCount++;
 
-                if ((_typeCount + 1) > WhiteText.text.Length)
-                    return;
-
+               
+                  
 
             }
         }
