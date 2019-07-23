@@ -12,9 +12,14 @@ public class GameOverPanel :BasePanel
 
     void Start()
     {
-        
+        transform.Find("Continue").GetComponent<Button>().onClick.AddListener(Continue);
     }
 
+    public void Continue()
+    {
+        uiMng.PopPanel();
+        uiMng.PushPanel(UIPanelType.Room);
+    }
     public void setPanel(string data)
     {
         string[] response = data.Split('|');
@@ -36,6 +41,12 @@ public class GameOverPanel :BasePanel
             sName.text = player1[0];
             sTime.text = float.Parse(player1[1]).ToString("F2");
         }
+    }
+
+    public override void OnExit()
+    {
+        gameObject.SetActive(false);
+        base.OnExit();
     }
 
     public override void OnEnter()
