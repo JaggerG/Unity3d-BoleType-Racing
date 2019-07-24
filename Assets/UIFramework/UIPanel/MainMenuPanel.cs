@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
+
 using Button = UnityEngine.UI.Button;
 
 public class MainMenuPanel : BasePanel
@@ -23,7 +23,7 @@ public class MainMenuPanel : BasePanel
         transform.Find("Name").GetComponent<Button>();
         transform.Find("Store").GetComponent<Button>();
         transform.Find("setting").GetComponent<Button>();
-        transform.Find("exit").GetComponent<Button>();
+        transform.Find("exit").GetComponent<Button>().onClick.AddListener(OnExitButton);
     }
     
     
@@ -38,7 +38,12 @@ public class MainMenuPanel : BasePanel
     private void OnCallButton(){}
     private void OnStoreButton(){}
     private void OnSettingButton(){}
-    private void OnExitButton(){}
+
+    private void OnExitButton()
+    {
+        uiMng.PopPanel();
+        uiMng.PushPanel(UIPanelType.Login);
+    }
     
     
     public override void OnEnter()

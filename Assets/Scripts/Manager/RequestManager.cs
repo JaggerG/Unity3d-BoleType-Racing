@@ -32,7 +32,7 @@ public class RequestManager : BaseManager
 //            Debug.LogWarning(data);
 //            Debug.LogWarning("ActionCode----------HandleReponse----------"+actionCode);
 //            Debug.LogWarning(requestDict+"--------request");
-              Debug.LogWarning("HandleReponse");
+             // Debug.LogWarning("HandleReponse");
             BaseRequest request = requestDict.TryGet<ActionCode, BaseRequest>(actionCode);
             if (request == null)
             {

@@ -47,7 +47,7 @@ public class ClientManager :BaseManager {
             int count = clientSocket.EndReceive(ar);
 //            Debug.LogWarning("reciveDataLength------>"+count);
 //            Debug.LogWarning("startIndex------->"+msg.StartIndex+"------"+"msg.RemainSize------->"+msg.RemainSize);
-              Debug.LogWarning("DataFromServer-----"+Encoding.UTF8.GetString(msg.Data,0,msg.Data.Length));
+            //  Debug.LogWarning("DataFromServer-----"+Encoding.UTF8.GetString(msg.Data,0,msg.Data.Length));
                 string datas = Encoding.UTF8.GetString(msg.Data, 0, msg.Data.Length);
                //Debug.LogWarning("2222");
                 //JsonData jsondata = JsonMapper.ToObject(Encoding.UTF8.GetString(msg.Data, 0, msg.Data.Length));

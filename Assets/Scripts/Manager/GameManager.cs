@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
@@ -82,21 +83,47 @@ public class GameManager : MonoBehaviour
     
     void Start ()
     {
+
+        Init();
+    }
+
+    public void Init()
+    {
+        //TimerText.text = "";
+        CountDownText.SetActive(false);
+      
+        Time = 0;
+        speed=0;
+        TotalTime=0;
         isBegin = false;
         isShowSubTitle = false;
         numCount = 0;
 //        currentBlock[0] = "Alpha1";
 //        currentBlock[1] = "Alpha2";
 //        currentBlock[3] = "Alpha3";
-        //RedText.text="";
+        RedText.text="";
         WhiteText.text = "love_of_my_life_you_heart_me_you_broken_my_love_and_now_you_leave_me_love_of_my_life_cant_you_see_bring_it_back_bring_it_back_dont_take_away_from_me_because_you_dont_konw_what_is_to_me_love_of_my_life_love_of_my_life_oh_you_will_remmber_when_there_blow_over";
         //print(WhiteText.text.Length);
         _typeCount = 0;
         //print(WhiteText.text.ToString().Substring(1,WhiteText.text.Length-1));
         TimerText = Timer.GetComponent<Text>();
 
-
     }
+
+
+    public void resetGame()
+    {
+        Time = 0;
+        speed=0;
+        TotalTime=0;
+        isBegin = false;
+        isShowSubTitle = false;
+        numCount = 0;
+        RedText.text="";
+        CountDownText.SetActive(false);
+        subTitle.SetActive(false);
+    }
+
 
     /// <summary>
     /// 大小写控制
@@ -123,6 +150,9 @@ public class GameManager : MonoBehaviour
 //                
 //        }
 //    }
+
+
+    
 
     public void showTime(string time)
     {

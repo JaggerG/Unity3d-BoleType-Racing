@@ -13,7 +13,7 @@ using UnityEngine.Experimental.UIElements;
 
 public class Message  {
 
-    private byte[] data = new byte[1024];
+    private byte[] data = new byte[10240];
     private int startIndex = 0;//我们存取了多少个字节的数据在数组里面
     private string databuffer="";//用来临时截取未完成的字符
 
@@ -158,7 +158,7 @@ public class Message  {
                 {
 //                    Debug.Log("break");
                     
-                    data=new byte[1024];
+                    data=new byte[10240];
                     byte[] temp= Encoding.UTF8.GetBytes(strData);
                     //data = temp;
                     Array.Copy(temp,0,data,0,temp.Length);

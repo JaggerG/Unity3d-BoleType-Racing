@@ -81,9 +81,10 @@ public class VSPanel : BasePanel
         }
         if (isPopPanel)
         {
+            Debug.Log("ExitRoom");
             uiMng.PopPanel();
-            gameObject.SetActive(false);
-            uiMng.PushPanel(UIPanelType.Room);
+            BasePanel panel=uiMng.PushPanel(UIPanelType.Room);
+            (panel as RoomPanel).isCreateRoom = false;
             isPopPanel = false;
         }
 
@@ -91,7 +92,7 @@ public class VSPanel : BasePanel
         {
             uiMng.PopPanel();
             gameObject.SetActive(false);
-            isPopPanel = false;
+            isGameBegin = false;
         }
     }
     
@@ -144,10 +145,23 @@ public class VSPanel : BasePanel
 
     public override void OnExit()
     {
+        Debug.Log("PopVsPanel");
+        ud1 = null;
+        ud2 = null;
         gameObject.SetActive(false);
     }
 
+    public override void OnEnter()
+    {
+        Debug.Log("EnterVsPanel");
+        gameObject.SetActive(true);
+    }
 
+    public override void OnPause()
+    {
+        Debug.Log("PauseVsPnale");
+        gameObject.SetActive(false);
+    }
     public void OnBeginClickResponse()
     {
         uiMng.PopPanel();

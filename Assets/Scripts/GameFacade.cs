@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+
+using UnityEngine.Analytics;
 using UnityEngine.Rendering;
 
 public class GameFacade : MonoBehaviour
@@ -26,7 +28,7 @@ public class GameFacade : MonoBehaviour
     private PropManager propMng;
     private UIManager uiMng;
     private CameraManager cameraMng;
-
+    private string result;
     
     private bool isGameMsg = false;
     private bool isEnterPlaying = false;
@@ -35,7 +37,8 @@ public class GameFacade : MonoBehaviour
     private bool isShowTime = false;
     private bool isWiner = false;
     private bool isUpdate = false;
-    private bool isShowGameOverPanel;
+    private bool isShowGameOverPanel=false;
+    private bool isShowResult = false;
     private string times = "";
     private string gameovermsg= "";
     private string gameResult = "";
@@ -73,6 +76,17 @@ public class GameFacade : MonoBehaviour
             
             
             isEnterPlaying = false;  
+        }
+
+        if (isShowResult)
+        {
+           // GameObject.Find("FinishLine").GetComponent<Collider>().enabled = false;
+            //finishStopTime();
+            uiMng.PopPanel();
+            BasePanel panel=uiMng.PushPanel(UIPanelType.GameOver);
+            (panel as GameOverPanel).showResult(result);
+            isShowResult = false;
+
         }
 
         if (isEnterGameCamera)
@@ -336,7 +350,22 @@ public class GameFacade : MonoBehaviour
         gameResult = data;
         isShowGameOverPanel = true;
     }
-    
+
+
+    public void GameOver()
+    {
+        gameMng.GetComponent<GameManager>().resetGame();
+        playerMng.GameOver();
+        cameraMng.ExitGame();
+
+    }
+
+    public void showResult(string result)
+    {
+        this.result = result;
+        isShowResult = true;
+    }
+   
     
 //    public void GameOverMsg(string msg)
 //    {

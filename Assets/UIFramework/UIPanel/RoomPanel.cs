@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using DG.Tweening;
 
 using UnityEngine;
@@ -22,9 +21,10 @@ public class RoomPanel : BasePanel
     private RectTransform roomListContent;
     private Button CreateRooom;
     private Button ReturnButton;
-    
+    public bool isCreateRoom = false;
     private JoinRequest joinrequest;
-
+    private bool isPopPanel = false;
+    
     private bool isClearList = false;
    
 
@@ -65,8 +65,9 @@ public class RoomPanel : BasePanel
 
     public void OnCreatRoomResponse()
     {
-        BasePanel panel = uiMng.PushPanel(UIPanelType.VS);
-        (panel as VSPanel).SetLocalPlayerResSync();
+        Debug.Log("CreateResponse");
+        isCreateRoom = true;
+        
 
 
     }
@@ -79,6 +80,8 @@ public class RoomPanel : BasePanel
     public override void OnEnter()
     {
        // EnterAnim();
+       
+       Debug.Log("RoomPanelEnter");
        gameObject.SetActive(true);
        SetUserDetail();
        if (listRoomRequest == null)
@@ -89,13 +92,17 @@ public class RoomPanel : BasePanel
 
     public override void OnExit()
     {
+        
+        Debug.Log("RoomPanelExit");
         gameObject.SetActive(false);
     }
 
     public override void OnPause()
     {
+        Debug.Log("RoomPanelPause");
         gameObject.SetActive(false);
     }
+   
 
     private void HideAnim()
     {
@@ -121,11 +128,11 @@ public class RoomPanel : BasePanel
     {
        // Debug.Log("--------udList--RoomPanle--"+udList[0].NickName);
         this.udList = udList;
-        Debug.Log(this.udList[0].NickName);
+      //  Debug.Log(this.udList[0].NickName);
     }
     public void LoadRoomItem(List<UserData> udList)
     {
-        Debug.Log("--------loadRoomItem-------");
+      //  Debug.Log("--------loadRoomItem-------");
 
         RoomItem [] riArray = roomList.GetComponentsInChildren<RoomItem>();
         
@@ -159,6 +166,7 @@ public class RoomPanel : BasePanel
         
         if(ud1!=null||ud2!=null)
         {
+            uiMng.PopPanel();
             BasePanel panel = uiMng.PushPanel(UIPanelType.VS);
             (panel as VSPanel).SetAllPlayerResSync(ud1,ud2);
             ud1 = null;
@@ -176,6 +184,21 @@ public class RoomPanel : BasePanel
 
             isClearList = false;
         }
+
+        if (isCreateRoom)
+        {
+            BasePanel panel = uiMng.PushPanel(UIPanelType.VS);
+            (panel as VSPanel).SetLocalPlayerResSync();
+            isCreateRoom = false;
+        }
+
+        if (isPopPanel)
+        {
+            
+            isPopPanel = false;
+        }
+        
+        
     }
 
     public void ClearList()
@@ -184,15 +207,19 @@ public class RoomPanel : BasePanel
     }
     public void OnJoinClick(string id)
     {
+       
         joinrequest.SendRequest(id);
+        
     }
     public override void OnResume()
     {
-        gameObject.SetActive(false);
+        Debug.Log("RoomPanel Resume");
+        gameObject.SetActive(true);
         //listRoomRequest.SendRequest();
     }
     public void OnJoinResponse(UserData ud1, UserData ud2)
     {
+        
         this.ud1 = ud1;
         this.ud2 = ud2;
     }

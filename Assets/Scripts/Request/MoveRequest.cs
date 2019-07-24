@@ -10,7 +10,7 @@ public class MoveRequest : BaseRequest
 
     private Transform localPlayerTransform;
     private Transform remotePlayerTransform;
-    private int syncRate = 25;
+    private int syncRate = 35;
 
     private bool isSyncRemotePlayer = false;
     private Vector3 pos;
@@ -78,5 +78,10 @@ public class MoveRequest : BaseRequest
         float y = float.Parse(strs[1]);
         float z = float.Parse(strs[2]);
         return new Vector3(x, y, z);
+    }
+
+    public void GameOver()
+    {
+        isSyncRemotePlayer = false;
     }
 }

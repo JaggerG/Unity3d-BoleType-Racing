@@ -98,5 +98,15 @@ public class PlayerManager : BaseManager
         //currentRoleGameObject.AddComponent<GameManager>();
     }
 
+    public void GameOver()
+    {
+        //currentRoleGameObject.GetComponent<MoveRequest>().enabled = false;
+        //currentRoleGameObject.GetComponent<MoveRequest>().GameOver();
+        GameObject.Destroy(currentRoleGameObject);
+        GameObject.Destroy(playerSyncRequest);
+        GameObject.Destroy(remoteRoleGameObject);
+        
+    }
+
     
 }

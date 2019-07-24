@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 //using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
-using UnityEngineInternal;
+
 
 public class StartPanel : BasePanel
 {
@@ -33,10 +33,17 @@ public class StartPanel : BasePanel
         
     }
 
+    public override void OnExit()
+    {
+        gameObject.SetActive(false);
+        base.OnExit();
+    }
+
     public override void OnResume()
     {
-        base.OnResume();
-        startButton.gameObject.SetActive(true);
-        startButton.transform.DOScale(1, 0.3f).OnComplete(() => btnAnimator.enabled = true);
+        
+//        base.OnResume();
+//        startButton.gameObject.SetActive(true);
+//        startButton.transform.DOScale(1, 0.3f).OnComplete(() => btnAnimator.enabled = true);
     }
 }

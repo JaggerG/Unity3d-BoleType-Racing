@@ -40,6 +40,18 @@ public class CameraManager :BaseManager
       FollowTarget(facade.getCameraTarget().transform);
       //FollowTarget();
    }
+
+   public void CancleFllow()
+   {
+      followTarget.target = null;
+      followTarget.enabled = false;
+   }
+
+   public void ExitGame()
+   {
+      CancleFllow();
+      GameCamera.depth = -1;
+   }
    
    
 }
